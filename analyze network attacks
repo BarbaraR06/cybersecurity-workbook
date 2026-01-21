@@ -1,1 +1,59 @@
 In this activity, I investigated a website outage triggered by abnormal network traffic. Using packet capture analysis, I identified a high volume of TCP SYN requests coming from an unfamiliar IP address, consistent with a SYN flood (DoS) attack. I documented how the attack impacts the TCP handshake, overwhelms server resources, and leads to connection timeouts for employees accessing the site. I also outlined immediate containment actions (taking the server offline temporarily and blocking the source IP) and noted limitations of IP blocking due to spoofing.
+
+
+Cybersecurity Incident Report:
+Section 1: Identify the type of attack that may have caused this network interruption
+In this activity, I analyzed a server outage that affected employees of a travel agency, preventing them from accessing the company website due to connection timeout errors. After receiving an automatic alert from the monitoring system, network traffic was captured with a packet sniffer, revealing an unusual number of TCP SYN requests originating from an unknown IP address. Based on the traffic pattern and the server's lack of response, a SYN flood denial-of-service (DoS) attack was identified as the most likely cause.
+
+A large number of TCP SYN requests were observed being sent to the web server from an unknown IP address. This pattern is typical of a SYN flood, where the attacker initiates numerous TCP connections without completing them, resulting in a saturated server unable to properly respond to legitimate requests, causing timeout errors when attempting to access the site.
+
+
+Section 2: Explain how the attack is causing the website to malfunction:
+A SYN flood attack affects website functionality because it exploits the TCP three-way handshake process:
+1. The client sends a SYN packet to initiate the connection.
+
+2. The server responds with a SYN-ACK and reserves resources while waiting for confirmation.
+
+3. The client should respond with an ACK to complete the connection.
+
+In a SYN flood, the attacker sends many SYN packets but does not complete the handshake (does not send the final ACK). This generates many half-open connections. The server's connection queue fills up, consuming resources. This makes the server slow or inaccessible, and employees receive connection timeout errors when trying to access the website.
+
+Attack Description:
+
+The main symptoms observed are:
+- A large number of repetitive SYN requests to the web server.
+
+- An abnormal increase in incoming traffic from a suspicious source.
+
+- Decreased or absent effective responses from the server to legitimate users.
+
+- Connection timeout errors when attempting to access the site.
+
+The devices involved in the disruption include the web server, the network firewall/router, and the attacker's device generating the SYN requests. The firewall may detect the increase in incoming requests, but without specific protection, the server will eventually become overloaded.
+
+Negative Consequences for the Organization
+
+Potential consequences include:
+
+Website unavailability (loss of access to promotions and sales).
+
+Disruption of work for employees who use the site to serve customers.
+
+Loss of revenue and reputational damage due to service outages.
+
+Increased workload for the technical team due to repeated incidents.
+
+If the attack continues, it can lead to sustained degradation of server performance.
+
+Measures to prevent similar attacks:
+- Rate limiting and filtering of SYN traffic in the firewall.
+
+- Enabling SYN cookies or anti-SYN flood protection on the server.
+
+- Use of IDS/IPS to detect DoS patterns.
+
+- Implementing anti-DDoS solutions.
+
+- Continuous monitoring and alerts for abnormal connection volume.
+
+
