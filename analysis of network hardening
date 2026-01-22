@@ -1,0 +1,21 @@
+In this activity, I am working as a security analyst for a social network. The company has suffered a data breach that compromised the security of its customers' personal information. The organization wants to implement robust network hardening practices that can be consistently deployed to prevent future attacks.
+
+The company has four vulnerabilities:
+
+- Employees share passwords.
+
+- The administrator password for the database is set to the default.
+
+- Firewalls do not have established rules to filter incoming and outgoing network traffic.
+
+- Multi-factor authentication (MFA) is not used.
+
+Security risk assessment report:
+Three hardening tools are presented.
+
+- Multi-factor authentication (MFA): Adds an additional layer of verification beyond the password because even if an attacker obtains an employee's password, they would still need a second factor to gain access. This reduces the risk of unauthorized access.
+
+- Strong Password Management + Access Control (Least Privilege / Role-Based Access): This method prevents password sharing and avoids the possibility of credential exposure. Furthermore, changing the default administrative password for the database eliminates one of the attacker's access points.
+
+- Firewall Rules and Traffic Filtering (Inbound/Outbound filtering + rule review): Using firewall rules is important because they allow you to control what traffic enters and leaves the system. In this proposed organization, firewalls exist, but they lack rules for filtering traffic. This method blocks unauthorized access attempts from the outside, limits exposed services and ports, and can prevent unauthorized outbound traffic.
+A weekly or monthly rule review should be performed to remove obsolete or dangerous rules.

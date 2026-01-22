@@ -1,0 +1,38 @@
+In this activity, I investigated an incident affecting a website. Users reported that the site prompted them to download an executable file, and after running it, they were redirected to a malicious domain, causing their computers to slow down. I analyzed a tcpdump log to identify the protocols used and document the event sequence. The traffic shows DNS requests and responses to resolve the domain to an IP address, followed by HTTP requests to load the page and initiate a suspicious download. Further DNS queries and HTTP requests to the malicious domain are then observed, confirming the redirection.
+
+Section 1: The following protocols were identified in the incident:
+
+DNS: Used to resolve the domain name to an IP address before connecting to the site. The tcpdump shows an A? query for yummyrecipesforme.com and then for greatrecipesforme.com, with the DNS response returning their corresponding IPs.
+
+TCP: Used to establish the connection with the web server.
+HTTP: Used to request site content, which may include downloading the malicious file.
+
+Section 2:
+
+For investigation, a sandbox environment was set up, and network traffic was captured using tcpdump while accessing yummyrecipesforme.com. The following stages are observed in the log:
+
+The traffic begins with a DNS request from the user's machine to the DNS server, followed by a response with an IP address. This confirms that the browser resolves the domain before connecting to the site.
+
+After the DNS, the beginning of the TCP connection from the client to the web server is observed with:
+- Flags [S] (SYN: connection initiated)
+- Server response Flags [S.] (SYN-ACK: server acknowledges the request) This demonstrates that a connection to the legitimate site is initiated.
+
+Within the TCP flow, the line HTTP: GET / HTTP/1.1 appears. This indicates that the browser is requesting data from the server using HTTP 1.1.
+
+Then, a change appears in the log:
+- New DNS resolution: A? greatrecipesforme.com
+
+- DNS response with a different IP: A 192.0.2.172
+
+and subsequently a TCP connection to that new destination:
+
+- your.machine.56378 > greatrecipesforme.com.http Flags [S]
+
+- greatrecipesforme.com.http > your.machine.56378 Flags [S.]
+
+This confirms that the browser was redirected to greatrecipesforme.com, and the client's ephemeral port changes, which is normal when the browser initiates a new connection to another site.
+
+Conclusion: The yummyrecipesforme.com website was compromised. An attacker (possibly a former employee) performed a brute-force attack against the host's administrative account, taking advantage of the fact that the password was still the default and there were no controls in place to prevent repeated attempts. After gaining access, they modified the site's code and inserted malicious JavaScript to force a download and redirect visitors to a fake domain containing malware.
+
+Section 3:
+One remedy to prevent brute-force attacks is to implement blocking and limiting login attempts.
