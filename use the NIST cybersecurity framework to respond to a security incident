@@ -1,0 +1,12 @@
+In this activity, you were required to document and analyze an incident that occurred on the organization's internal network, where a DoS attack resulted in the interruption of network services.
+
+Incident Report (NIST CSF) - ICMP Flood DoS Attack
+1) Identify: The organization experienced a service interruption due to a DoS attack based on an ICMP packet flood. The investigation determined that the attacker exploited a misconfigured firewall that allowed unrestricted ICMP traffic. To reduce this risk, periodic audits of critical infrastructure should be conducted, including firewall configuration reviews, service exposure assessments, and access control analyses.
+
+2) Protect: To protect internal assets, preventative controls should be implemented to decrease the likelihood of DoS attacks. Key measures include: strict firewall rules, ICMP filtering and limiting, source IP verification, and network segmentation to isolate critical services. It is important to formalize secure configuration policies (hardening) and train technical staff to ensure that the firewall and network devices remain configured and up-to-date.
+
+3) Detect: Detection capabilities should be strengthened through continuous traffic monitoring and automated alerts. The use of network monitoring software, along with an IDS/IPS, allows for the identification of abnormal patterns such as a sudden increase in ICMP traffic or repetitive traffic to internal services. To optimize detection, specific thresholds and alerts for ICMP traffic should be defined, in addition to logging firewall events and correlating them in a centralized log system to identify incidents more quickly.
+
+4) Respond: During the incident, the team responded by immediately applying controls such as blocking incoming ICMP, disconnecting non-critical services, and restoring essential services. To improve future response, it is recommended to establish a formal playbook for DoS attacks, conduct periodic drills, and document lessons learned.
+
+5) Recover: Critical services are restored, and network operation is normalized after the malicious traffic is mitigated. It is recommended to implement business continuity plans (BCP) and disaster recovery plans (DRP), regular backups, and post-incident validation to ensure that systems have not been degraded.
